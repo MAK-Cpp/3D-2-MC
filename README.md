@@ -7,3 +7,5 @@
 [Документация OpenGL](https://docs.gl/)
 
 [Документация Markdown для написания README.md](https://ru.wikipedia.org/wiki/Markdown)
+
+[Документация по Git (на русском!)](https://git-scm.com/book/ru/v2)
