@@ -23,7 +23,6 @@
 // Need to get variables from CMake
 #include "config.h"
 
-#define GET_VARIABLE_NAME(var) #var
 
 
 std::ostream& operator<< (std::ostream& op, const glm::mat4& mat) {

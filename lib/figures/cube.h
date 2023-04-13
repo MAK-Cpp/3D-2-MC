@@ -14,7 +14,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
 
-#include "..\config.h"
+#include "../config.h"
 
 namespace figure {
 

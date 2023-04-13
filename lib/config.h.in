@@ -3,7 +3,7 @@
 #include <filesystem>
 #include <glm/glm.hpp> 
 
-#define PROJECT_DIR std::filesystem::path("@PROJECT_DIR@")
+#define PROJECT_DIR std::filesystem::path("@PROJECT_SOURCE_DIR@")
 
 static constexpr glm::mat4 kIdentityMatrix(1);
     
