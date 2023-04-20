@@ -45,3 +45,4 @@ config.h
 .vscode/
 cmake-build-debug*/
 out/
+.cmake/
