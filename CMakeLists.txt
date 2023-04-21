@@ -4,7 +4,6 @@ project(3D2MC VERSION 0.0.1 LANGUAGES CXX)
 
 find_package(OpenGL REQUIRED)
 find_package(GLFW3 3.3 REQUIRED)
-# find_package(glm REQUIRED)
 find_package(GLEW REQUIRED)
 
 
@@ -22,6 +21,7 @@ endif()
 
 add_subdirectory(lib)
 add_subdirectory(src)
+
 #target_compile_options(${PROJECT_NAME} PRIVATE ${COMPILE_OPT})
 
 

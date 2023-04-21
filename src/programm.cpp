@@ -146,8 +146,8 @@ int main(int argc, char **argv) {
     // Create and compile our GLSL program from the shaders
 
     GLuint programID =
-            LoadShaders(PROJECT_DIR / "shaders/TransformVertexShader.vertexshader",
-                        PROJECT_DIR / "shaders/ColorFragmentShader.fragmentshader");
+            LoadShaders(PROJECT_DIR / "shaders/TransformVertexShader.glsl",
+                        PROJECT_DIR / "shaders/ColorFragmentShader.glsl");
 
     glm::vec4 camera_position(4, 4, 4, 0);
     glm::vec3 camera_center(0, 0, 0);

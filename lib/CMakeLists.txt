@@ -10,5 +10,4 @@ add_library(texture texture.cpp texture.hpp)
 add_library(vboindexer vboindexer.cpp vboindexer.hpp)
 
 
-
 add_subdirectory(figures)
