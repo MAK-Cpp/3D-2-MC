@@ -7,6 +7,7 @@
 + [Учебник по OpenGl №1](http://www.opengl-tutorial.org)
 + [Учебник по OpenGL №2](https://learnopengl.com)
 + [Несколько ссылок на всякие учебники](https://openglbook.com)
++ [GLFW documentation](https://www.glfw.org/documentation.html)
 ## Остальные полезные ссылки
 + [Документация Markdown для написания README.md](https://ru.wikipedia.org/wiki/Markdown)
 + [Документация по Git (на русском!)](https://git-scm.com/book/ru/v2)

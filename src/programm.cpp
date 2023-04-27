@@ -80,8 +80,8 @@ int main(int argc, char **argv) {
         return -1;
     }
 
-    constexpr int kWidth = 1920;
-    constexpr int kHeight = 1080;
+    constexpr int kWidth = 800;
+    constexpr int kHeight = 600;
     constexpr float kCamDegrees = 45;
     constexpr float kRotationRadians = glm::radians(1.0f);
     // const float kCosRot = std::cos(kRotationRadians);
@@ -107,8 +107,10 @@ int main(int argc, char **argv) {
     glfwWindowHint(GLFW_SAMPLES, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    // Выключение возможности изменения размера окна
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
     // Open a window and create its OpenGL context
     GLFWwindow *window = glfwCreateWindow(kWidth, kHeight, "Tutorial 01", NULL, NULL);
@@ -122,6 +124,7 @@ int main(int argc, char **argv) {
     glfwMakeContextCurrent(window);
 
     // Initialize GLEW
+    glewExperimental = GL_TRUE; // need to use new functional + core-profile mode
     if (glewInit() != GLEW_OK) {
         fprintf(stderr, "Failed to initialize GLEW\n");
         getchar();
@@ -248,18 +251,12 @@ usage:
         // cause flickering, so it's there nonetheless.
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
+        glm::mat4 MVP = projection_matrix * view;
         for (int i = 0; i < cnt; i++) {
-            glm::mat4 MVP = projection_matrix * view * blocks[i].model();
-
-            glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
-
-
-
+            glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &(MVP * blocks[i].model())[0][0]);
             // Use our shader
             glUseProgram(programID);
-            // Draw triangle...
-
+            // Draw cube...
             blocks[i].Draw();
         }
 
