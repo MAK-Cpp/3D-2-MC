@@ -5,6 +5,7 @@ project(3D2MC VERSION 0.0.1 LANGUAGES CXX)
 find_package(OpenGL 3.2 REQUIRED)
 find_package(GLFW3 3.3 REQUIRED)
 find_package(GLEW REQUIRED)
+find_package(glm REQUIRED)
 
 
 set(CMAKE_CXX_STANDARD 20)
@@ -13,11 +14,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # set(CMAKE_CXX_CLANG_TIDY clang-tidy)
 # set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=*")
 
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    link_libraries(glfw "/Windows/System32/glew32.dll" OpenGL::GL)
-elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
-    link_libraries(glfw "/opt/homebrew/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.0.dylib" OpenGL::GL)
+
+set(GRAPHIC_LIBRARIES glfw GLEW::glew OpenGL::GL)
+
+if (APPLE OR LINUX)
+    set(LIBRARIES ${GRAPHIC_LIBRARIES} glm::glm)
+else ()
+    set(LIBRARIES ${GRAPHIC_LIBRARIES} glm)
 endif()
+link_libraries(${GRAPHIC_LIBRARIES})
 
 add_subdirectory(lib)
 add_subdirectory(src)
