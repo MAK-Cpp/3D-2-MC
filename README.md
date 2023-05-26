@@ -11,3 +11,4 @@
 ## Остальные полезные ссылки
 + [Документация Markdown для написания README.md](https://ru.wikipedia.org/wiki/Markdown)
 + [Документация по Git (на русском!)](https://git-scm.com/book/ru/v2)
++ [Документирование кода в Javadoc формате](https://developer.lsst.io/cpp/api-docs.html)
