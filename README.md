@@ -12,3 +12,4 @@
 + [Документация Markdown для написания README.md](https://ru.wikipedia.org/wiki/Markdown)
 + [Документация по Git (на русском!)](https://git-scm.com/book/ru/v2)
 + [Документирование кода в Javadoc формате](https://developer.lsst.io/cpp/api-docs.html)
++ [Про то, как работает ```git checkout --ours``` и ```git checkout --theirs``` при конфликте в merge](https://nitaym.github.io/ourstheirs/)
