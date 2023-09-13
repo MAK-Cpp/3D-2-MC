@@ -30,11 +30,19 @@
 *.exe
 *.out
 *.app
+*.bat
+
+
+config.h
 
 
 **/CMakeFiles
 **/Makefile
 **/CMakeCache.txt
 **/cmake_install.cmake
-cmake-build-debug
-.idea
+.idea/
+.vs/
+.vscode/
+cmake-build-debug*/
+out/
+.cmake/

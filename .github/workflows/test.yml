@@ -12,7 +12,12 @@ jobs:
 
     steps:
       - name: Setup dependencies
-        run: sudo apt-get install -y clang-tidy
+        run: sudo apt-get install clang-tidy libglfw3-dev libglew-dev libglm-dev
+
+      - name: Checkout submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Check for bad words
         run: "! grep -R -n -w -f .bad_words src lib"
