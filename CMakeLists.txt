@@ -3,9 +3,9 @@ cmake_minimum_required(VERSION 3.12)
 project(3D2MC VERSION 0.0.1 LANGUAGES CXX)
 
 find_package(OpenGL 3.3 REQUIRED)
-find_package(GLFW3 3.3 REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(glm REQUIRED)
+find_package(GLFW3 REQUIRED)
 
 
 set(CMAKE_CXX_STANDARD 20)

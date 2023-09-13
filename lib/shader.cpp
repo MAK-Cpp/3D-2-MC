@@ -50,7 +50,7 @@ GLuint LoadShaders(const std::filesystem::path& vertex_file_path, const std::fil
     }
 
     // Compile Fragment Shader
-    std::cerr << "Compiling shader : " << fragment_file_path.c_str() << '\n';
+    std::cout << "Compiling shader : " << fragment_file_path.c_str() << '\n';
     char const* fragment_source_pointer = fragment_shader_code.c_str();
     glShaderSource(fragment_shader_id, 1, &fragment_source_pointer, nullptr);
     glCompileShader(fragment_shader_id);
