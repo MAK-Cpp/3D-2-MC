@@ -17,3 +17,8 @@ jobs:
       - name: Check for bad words
         run: "! grep -R -n -w -f .bad_words src lib"
 
+      - name: Run clang format
+        run: "find . -iname *.h -o -iname *.hpp -o -iname *.cpp -exec clang-format --dry-run --Werror -style=file {} +"
+
+      - name: Build
+        run: mkdir build && cmake -S. -Bbuild -DUSE_CLANG_TIDY=TRUE && cmake --build build
