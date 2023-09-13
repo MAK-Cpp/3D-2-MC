@@ -5,7 +5,11 @@ project(3D2MC VERSION 0.0.1 LANGUAGES CXX)
 find_package(OpenGL 3.3 REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(glm REQUIRED)
-find_package(GLFW3 REQUIRED)
+if (LINUX)
+    find_package(glfw 3.3 REQUIRED)
+else()
+    find_package(glfw3 3.3 REQUIRED)
+endif()
 
 
 set(CMAKE_CXX_STANDARD 20)
