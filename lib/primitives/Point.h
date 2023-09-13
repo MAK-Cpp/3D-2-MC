@@ -9,6 +9,7 @@ private:
     GLfloat x_;
     GLfloat y_;
     GLfloat z_;
+
 public:
     explicit Point(GLfloat, GLfloat, GLfloat);
     explicit Point(glm::vec3 const&);

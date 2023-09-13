@@ -15,14 +15,12 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtx/transform.hpp"
-
 #include "shader.hpp"
 
 // figures
 #include "figures/cube.h"
 
 static const std::filesystem::path PROJECT_DIR(PROJECT_SOURCE_DIR);
-
 
 std::ostream &operator<<(std::ostream &op, const glm::mat4 &mat) {
     for (int x = 0; x < 4; x++) {
@@ -60,7 +58,6 @@ glm::vec3 vec4to3(const glm::vec4 &to_3) {
     return glm::vec3(to_3[0], to_3[1], to_3[2]);
 }
 
-
 glm::vec4 vec3to4(const glm::vec3 &to_4, const float end = 0) {
     return glm::vec4(to_4[0], to_4[1], to_4[2], end);
 }
@@ -70,7 +67,7 @@ glm::vec3 rotateVec3(const glm::vec3 &vec_to_rotate, glm::f32 angle, const glm::
     return vec4to3(result);
 }
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
     switch (key) {
     case GLFW_KEY_D: {
         std::cout << "D\n";
@@ -218,7 +215,6 @@ usage:
         file.close();
     }
 
-
     // Get a handle for our "MVP" uniform
     // Only during the initialisation
     GLuint MatrixID = glGetUniformLocation(programID, "MVP");
@@ -228,7 +224,6 @@ usage:
 
     // Check if the ESC key was pressed or the window was closed
     while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0) {
-
         glfwPollEvents();
 
         front = camera_center - vec4to3(camera_position);
@@ -291,7 +286,6 @@ usage:
 
         // Swap buffers
         glfwSwapBuffers(window);
-
     }
 
     // Close OpenGL window and terminate GLFW
