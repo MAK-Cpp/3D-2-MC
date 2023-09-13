@@ -15,7 +15,7 @@ jobs:
         run: sudo apt-get install -y clang-tidy
 
       - name: Checkout submodules
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -26,5 +26,4 @@ jobs:
         run: "find . -iname *.h -o -iname *.hpp -o -iname *.cpp -exec clang-format --dry-run --Werror -style=file {} +"
 
       - name: Build
-        #run: mkdir build && ls -al && cd .. && ls -al && cd .. && ls -al # && cmake -S. -Bbuild -DUSE_CLANG_TIDY=TRUE && cmake --build build
-        run: ls -al && cmake . && cmake --build .
+        run: mkdir build && cmake -S. -Bbuild -DUSE_CLANG_TIDY=TRUE && cmake --build build
