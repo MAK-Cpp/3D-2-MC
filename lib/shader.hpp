@@ -16,7 +16,7 @@
 
 #include <filesystem>
 
-GLuint LoadShaders(const std::filesystem::path vertex_file_path,
-                   const std::filesystem::path fragment_file_path);
+GLuint LoadShaders(const std::filesystem::path& vertex_file_path,
+                   const std::filesystem::path& fragment_file_path);
 
 #endif

@@ -1,5 +1,5 @@
-#ifndef GL_CUBE
-#define GL_CUBE
+#ifndef GL_FIGURE_CUBE
+#define GL_FIGURE_CUBE
 
 #include <iostream>
 
@@ -14,7 +14,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
 
-#include "../config.h"
 
 namespace figure {
 

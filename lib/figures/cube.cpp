@@ -1,5 +1,6 @@
 #include "cube.h"
 
+static constexpr glm::mat4 kIdentityMatrix(1);
 
 figure::Cube::Cube(const float x, const float y, const float z)
     : model_(glm::translate(kIdentityMatrix, glm::vec3(x, y, z))) 
