@@ -22,4 +22,4 @@ jobs:
 
       - name: Build
         #run: mkdir build && ls -al && cd .. && ls -al && cd .. && ls -al # && cmake -S. -Bbuild -DUSE_CLANG_TIDY=TRUE && cmake --build build
-        run: cmake . && cmake --build .
+        run: ls -al && cmake . && cmake --build .
