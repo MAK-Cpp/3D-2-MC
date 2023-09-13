@@ -36,3 +36,5 @@
 **/Makefile
 **/CMakeCache.txt
 **/cmake_install.cmake
+cmake-build-debug
+.idea
