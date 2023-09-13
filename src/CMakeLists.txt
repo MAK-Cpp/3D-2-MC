@@ -4,12 +4,6 @@ add_executable(${PROJECT_NAME} programm.cpp)
 target_link_libraries(${PROJECT_NAME}
         PUBLIC
         shader
-        controls
-        objloader
-        quaternion_utils
-        tangentspace
-        text2D
-        texture
         vboindexer
         cube
 )
