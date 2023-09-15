@@ -32,7 +32,7 @@ std::ostream &operator<<(std::ostream &op, const glm::mat4 &mat) {
 }
 
 std::ostream &operator<<(std::ostream &op, const glm::vec3 &vec) {
-    op << "{ " << vec.x << " ; " << vec.y << " ; " << vec.z << " }";
+    op << '{' << vec.x << "; " << vec.y << "; " << vec.z << '}';
     return op;
 }
 
@@ -209,11 +209,10 @@ usage:
         std::ifstream file;
         file.open(blocks_input);
         file >> cnt;
-        blocks.resize(cnt);
         for (int i = 0; i < cnt; i++) {
-            float x, y, z;
+            GLfloat x, y, z;
             file >> x >> y >> z;
-            blocks[i] = *new figure::Cube(x, y, z);
+            blocks.emplace_back(x, y, z);
         }
         file.close();
     }
@@ -287,7 +286,6 @@ usage:
         glm::mat4 MVP = projection_matrix * view;
         for (int i = 0; i < cnt; i++) {
             glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &(MVP * blocks[i].model())[0][0]);
-
             // Draw cube...
             blocks[i].Draw();
         }

@@ -1,19 +1,22 @@
 #include "cube.h"
 
-GLuint figure::Cube::vertex_array_object_ = 0;
-GLuint figure::Cube::vertex_buffer_object_   = 0;
-GLuint figure::Cube::color_buffer_object_    = 0;
+GLuint figure::Cube::vertex_array_object_  = 0;
+GLuint figure::Cube::vertex_buffer_object_ = 0;
+GLuint figure::Cube::color_buffer_object_  = 0;
 
 static constexpr glm::mat4 kIdentityMatrix(1);
 
-figure::Cube::Cube(GLfloat const x, GLfloat const y, GLfloat const z)
-    : model_(glm::translate(kIdentityMatrix, glm::vec3(x, y, z))), X{model_[3][0]}, Y{model_[3][1]}, Z{model_[3][2]} {}
+figure::Cube::Cube(GLfloat const var_x, GLfloat const var_y, GLfloat const var_z)
+    : model_(glm::translate(kIdentityMatrix, glm::vec3(var_x, var_y, var_z)))
+    , x{model_[3][0]}
+    , y{model_[3][1]}
+    , z{model_[3][2]} {}
 
-figure::Cube::Cube(glm::vec3 const& xyz)
-    : model_(glm::translate(kIdentityMatrix, xyz)), X(model_[3][0]), Y(model_[3][1]), Z(model_[3][2]) {}
+figure::Cube::Cube(glm::vec3 const& coordinates)
+    : model_(glm::translate(kIdentityMatrix, coordinates)), x{model_[3][0]}, y{model_[3][1]}, z{model_[3][2]} {}
 
 figure::Cube::Cube(figure::Cube const& other)
-    : model_(other.model_), X(model_[3][0]), Y(model_[3][1]), Z(model_[3][2]) {}
+    : model_(other.model_), x{model_[3][0]}, y{model_[3][1]}, z{model_[3][2]} {}
 
 figure::Cube::~Cube() = default;
 
@@ -23,8 +26,11 @@ figure::Cube& figure::Cube::operator=(figure::Cube const& other) {
     return *this;
 }
 
-const glm::mat4& figure::Cube::model() const {
+const glm::mat4& figure::Cube::model() const noexcept {
     return model_;
+}
+glm::vec3 figure::Cube::coordinates() const noexcept {
+    return {x, y, z};
 }
 
 void figure::Cube::Draw() const {
@@ -75,4 +81,10 @@ void figure::Cube::clearBuffers() {
     glDeleteBuffers(1, &color_buffer_object_);
     glDeleteVertexArrays(1, &vertex_array_object_);
     std::cout << "Done!\n";
+}
+figure::Cube& figure::Cube::operator+=(glm::vec3 const& vector) {
+    x += vector.x;
+    y += vector.y;
+    z += vector.z;
+    return *this;
 }
