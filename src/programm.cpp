@@ -67,6 +67,7 @@ glm::vec3 rotateVec3(const glm::vec3 &vec_to_rotate, glm::f32 angle, const glm::
 }
 
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
+    return;
     switch (key) {
     case GLFW_KEY_D: {
         std::cout << "D\n";
@@ -224,6 +225,7 @@ usage:
     glfwGetCursorPos(window, &mouse_position_x_end, &mouse_position_y_end);
     glfwSetKeyCallback(window, key_callback);
 
+    figure::Cube::generateBuffers();
 
     // Check if the ESC key was pressed or the window was closed
     while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0) {
@@ -293,6 +295,7 @@ usage:
         // Swap buffers
         glfwSwapBuffers(window);
     }
+    figure::Cube::clearBuffers();
 
     // Close OpenGL window and terminate GLFW
     glfwTerminate();

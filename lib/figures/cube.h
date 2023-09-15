@@ -58,10 +58,12 @@ private:
         0.302f, 0.455f, 0.848f, 0.225f, 0.587f, 0.040f, 0.517f, 0.713f, 0.338f, 0.053f, 0.959f, 0.120f, 0.393f, 0.621f,
         0.362f, 0.673f, 0.211f, 0.457f, 0.820f, 0.883f, 0.371f, 0.982f, 0.099f, 0.879f};
 
-    // Vertex Array Object
-    GLuint vertex_array_id_;
-    GLuint vertex_buffer_;
-    GLuint color_buffer_;
+
+    static GLuint vertex_array_object_;
+    static GLuint vertex_buffer_object_;
+    static GLuint color_buffer_object_;
+
+
     glm::mat4 model_;
 
 public:
@@ -76,8 +78,12 @@ public:
 
     [[nodiscard]] const glm::mat4& model() const;
 
+    static void generateBuffers();
+    static void clearBuffers();
+
     void Draw() const;
 };
+
 
 }  // namespace figure
 
