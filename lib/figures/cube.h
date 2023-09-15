@@ -59,24 +59,22 @@ private:
         0.362f, 0.673f, 0.211f, 0.457f, 0.820f, 0.883f, 0.371f, 0.982f, 0.099f, 0.879f};
 
     // Vertex Array Object
-    GLuint VertexArrayID_;
-    GLuint vertexbuffer_;
-    GLuint colorbuffer_;
+    GLuint vertex_array_id_;
+    GLuint vertex_buffer_;
+    GLuint color_buffer_;
     glm::mat4 model_;
 
 public:
-    float &X, Y, Z;
+    GLfloat const &X, Y, Z;
 
-    Cube(const float x = 0, const float y = 0, const float z = 0);
-    Cube(const glm::vec3& xyz);
-    Cube(const figure::Cube& other);
+    explicit Cube(GLfloat const = 0, GLfloat const = 0, GLfloat const = 0);
+    explicit Cube(glm::vec3 const&);
+    Cube(figure::Cube const&);
     ~Cube();
 
-    Cube& operator=(const figure::Cube& other);
+    Cube& operator=(figure::Cube const&);
 
-    const glm::mat4& model() const;
-
-    // void Scale(float )
+    [[nodiscard]] const glm::mat4& model() const;
 
     void Draw() const;
 };

@@ -2,69 +2,122 @@
 
 static constexpr glm::mat4 kIdentityMatrix(1);
 
-figure::Cube::Cube(const float x, const float y, const float z)
-    : model_(glm::translate(kIdentityMatrix, glm::vec3(x, y, z))), X(model_[3][0]), Y(model_[3][1]), Z(model_[3][2]) {
-    glGenVertexArrays(1, &VertexArrayID_);
-    glBindVertexArray(VertexArrayID_);
+figure::Cube::Cube(GLfloat const x, GLfloat const y, GLfloat const z)
+    : model_(glm::translate(kIdentityMatrix, glm::vec3(x, y, z))), X{model_[3][0]}, Y{model_[3][1]}, Z{model_[3][2]} {
+    glGenVertexArrays(1, &vertex_array_id_);
+    glBindVertexArray(vertex_array_id_);
 
-    glGenBuffers(1, &vertexbuffer_);
+    glGenBuffers(1, &vertex_buffer_);
     // The following commands will talk about our 'vertexbuffer' buffer
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer_);
+    glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_);
     // Give our vertices to OpenGL.
     glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+    glVertexAttribPointer(0,                            // 1) attribute 0. No particular reason for 0,
+                                                        //    but must match the layout in the shader.
+                          3,                            // 2) size
+                          GL_FLOAT,                     // 3) type
+                          GL_FALSE,                     // 4) normalized?
+                          0,                            // 5) stride
+                          reinterpret_cast<GLvoid*>(0)  // 6) array buffer offset
+    );
+    glEnableVertexAttribArray(0);
 
-    glGenBuffers(1, &colorbuffer_);
-    glBindBuffer(GL_ARRAY_BUFFER, colorbuffer_);
+    glGenBuffers(1, &color_buffer_);
+    glBindBuffer(GL_ARRAY_BUFFER, color_buffer_);
     glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
+    glVertexAttribPointer(1,                            // 1) attribute 1. No particular reason for 1, but
+                                                        //    must match the layout in the shader.
+                          3,                            // 2) size
+                          GL_FLOAT,                     // 3) type
+                          GL_FALSE,                     // 4) normalized?
+                          0,                            // 5) stride
+                          reinterpret_cast<GLvoid*>(0)  // 6) array buffer offset
+    );
+    glEnableVertexAttribArray(1);
+
+    glBindVertexArray(0);
 }
 
-figure::Cube::Cube(const glm::vec3& xyz)
+figure::Cube::Cube(glm::vec3 const& xyz)
     : model_(glm::translate(kIdentityMatrix, xyz)), X(model_[3][0]), Y(model_[3][1]), Z(model_[3][2]) {
-    glGenVertexArrays(1, &VertexArrayID_);
-    glBindVertexArray(VertexArrayID_);
+    glGenVertexArrays(1, &vertex_array_id_);
+    glBindVertexArray(vertex_array_id_);
 
-    // glm::translate()
-
-    glGenBuffers(1, &vertexbuffer_);
+    glGenBuffers(1, &vertex_buffer_);
     // The following commands will talk about our 'vertexbuffer' buffer
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer_);
+    glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_);
     // Give our vertices to OpenGL.
     glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+    glVertexAttribPointer(0,                            // 1) attribute 0. No particular reason for 0,
+                                                        //    but must match the layout in the shader.
+                          3,                            // 2) size
+                          GL_FLOAT,                     // 3) type
+                          GL_FALSE,                     // 4) normalized?
+                          0,                            // 5) stride
+                          reinterpret_cast<GLvoid*>(0)  // 6) array buffer offset
+    );
+    glEnableVertexAttribArray(0);
 
-    glGenBuffers(1, &colorbuffer_);
-    glBindBuffer(GL_ARRAY_BUFFER, colorbuffer_);
+    glGenBuffers(1, &color_buffer_);
+    glBindBuffer(GL_ARRAY_BUFFER, color_buffer_);
     glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
+    glVertexAttribPointer(1,                            // 1) attribute 1. No particular reason for 1, but
+                                                        //    must match the layout in the shader.
+                          3,                            // 2) size
+                          GL_FLOAT,                     // 3) type
+                          GL_FALSE,                     // 4) normalized?
+                          0,                            // 5) stride
+                          reinterpret_cast<GLvoid*>(0)  // 6) array buffer offset
+    );
+    glEnableVertexAttribArray(1);
+
+    glBindVertexArray(0);
 }
 
-figure::Cube::Cube(const figure::Cube& other)
+figure::Cube::Cube(figure::Cube const& other)
     : model_(other.model_), X(model_[3][0]), Y(model_[3][1]), Z(model_[3][2]) {
-    glGenVertexArrays(1, &VertexArrayID_);
-    glBindVertexArray(VertexArrayID_);
+    glGenVertexArrays(1, &vertex_array_id_);
+    glBindVertexArray(vertex_array_id_);
 
-    // glm::translate()
-
-    glGenBuffers(1, &vertexbuffer_);
+    glGenBuffers(1, &vertex_buffer_);
     // The following commands will talk about our 'vertexbuffer' buffer
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer_);
+    glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_);
     // Give our vertices to OpenGL.
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+    glVertexAttribPointer(0,                            // 1) attribute 0. No particular reason for 0,
+                                                        //    but must match the layout in the shader.
+                          3,                            // 2) size
+                          GL_FLOAT,                     // 3) type
+                          GL_FALSE,                     // 4) normalized?
+                          0,                            // 5) stride
+                          reinterpret_cast<GLvoid*>(0)  // 6) array buffer offset
+    );
+    glEnableVertexAttribArray(0);
 
-    glGenBuffers(1, &colorbuffer_);
-    glBindBuffer(GL_ARRAY_BUFFER, colorbuffer_);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_DYNAMIC_DRAW);
+    glGenBuffers(1, &color_buffer_);
+    glBindBuffer(GL_ARRAY_BUFFER, color_buffer_);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
+    glVertexAttribPointer(1,                            // 1) attribute 1. No particular reason for 1, but
+                                                        //    must match the layout in the shader.
+                          3,                            // 2) size
+                          GL_FLOAT,                     // 3) type
+                          GL_FALSE,                     // 4) normalized?
+                          0,                            // 5) stride
+                          reinterpret_cast<GLvoid*>(0)  // 6) array buffer offset
+    );
+    glEnableVertexAttribArray(1);
+
+    glBindVertexArray(0);
 }
 
 figure::Cube::~Cube() {
-    glDeleteVertexArrays(1, &VertexArrayID_);
-    glDeleteBuffers(1, &vertexbuffer_);
-    glDeleteBuffers(1, &colorbuffer_);
+    glDeleteVertexArrays(1, &vertex_array_id_);
+    glDeleteBuffers(1, &vertex_buffer_);
+    glDeleteBuffers(1, &color_buffer_);
 }
 
-figure::Cube& figure::Cube::operator=(const figure::Cube& other) {
+figure::Cube& figure::Cube::operator=(figure::Cube const& other) {
     model_ = other.model_;
-    X      = model_[3][0];
-    Y      = model_[3][1];
-    Z      = model_[3][2];
 
     return *this;
 }
@@ -74,33 +127,8 @@ const glm::mat4& figure::Cube::model() const {
 }
 
 void figure::Cube::Draw() const {
-    // 1st attribute buffer : vertices
-    glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer_);
-    glVertexAttribPointer(0,  // attribute 0. No particular reason for 0,
-                              // but must match the layout in the shader.
-                          3,         // size
-                          GL_FLOAT,  // type
-                          GL_FALSE,  // normalized?
-                          0,         // stride
-                          (void*)0   // array buffer offset
-    );
-
-    // 2nd attribute buffer : colors
-    glEnableVertexAttribArray(1);
-    glBindBuffer(GL_ARRAY_BUFFER, colorbuffer_);
-    glVertexAttribPointer(1,  // attribute. No particular reason for 1, but
-                              // must match the layout in the shader.
-                          3,         // size
-                          GL_FLOAT,  // type
-                          GL_FALSE,  // normalized?
-                          0,         // stride
-                          (void*)0   // array buffer offset
-    );
-
+    glBindVertexArray(vertex_array_id_);
     // Draw the triangle !
-    glDrawArrays(GL_TRIANGLES, 0,
-                 3 * 12);  // Starting from vertex 0; 3 vertices total -> 1 triangle
-    glDisableVertexAttribArray(0);
-    glDisableVertexAttribArray(1);
+    glDrawArrays(GL_TRIANGLES, 0, 3 * 12);  // Starting from vertex 0; 3 * 12 vertices total -> 12 triangles
+    glBindVertexArray(0);
 }

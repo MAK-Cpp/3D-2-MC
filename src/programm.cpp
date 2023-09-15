@@ -2,7 +2,6 @@
 #include <cmath>
 #include <cstdio>
 #include <iostream>
-#include <random>
 #include <vector>
 
 // Include GLEW
@@ -38,7 +37,7 @@ std::ostream &operator<<(std::ostream &op, const glm::vec3 &vec) {
 }
 
 glm::vec3 vectorMultiply(const glm::vec3 &a, const glm::vec3 &b) {
-    return glm::vec3(a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]);
+    return {a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]};
 }
 
 float scalarMultiply(const glm::vec3 &a, const glm::vec3 &b) {
@@ -46,7 +45,7 @@ float scalarMultiply(const glm::vec3 &a, const glm::vec3 &b) {
 }
 
 float vectorLength(const glm::vec3 &vec) {
-    return sqrt(scalarMultiply(vec, vec));
+    return std::sqrt(scalarMultiply(vec, vec));
 }
 
 float vectorsAngle(const glm::vec3 &a, const glm::vec3 &b) {
@@ -55,11 +54,11 @@ float vectorsAngle(const glm::vec3 &a, const glm::vec3 &b) {
 }
 
 glm::vec3 vec4to3(const glm::vec4 &to_3) {
-    return glm::vec3(to_3[0], to_3[1], to_3[2]);
+    return {to_3[0], to_3[1], to_3[2]};
 }
 
 glm::vec4 vec3to4(const glm::vec3 &to_4, const float end = 0) {
-    return glm::vec4(to_4[0], to_4[1], to_4[2], end);
+    return {to_4[0], to_4[1], to_4[2], end};
 }
 
 glm::vec3 rotateVec3(const glm::vec3 &vec_to_rotate, glm::f32 angle, const glm::highp_vec3 &axis, const float end = 0) {
@@ -91,6 +90,9 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
     }
     case GLFW_KEY_LEFT_CONTROL: {
         std::cout << "LCTRL\n";
+        break;
+    }
+    default: {
         break;
     }
     }
@@ -222,6 +224,7 @@ usage:
     glfwGetCursorPos(window, &mouse_position_x_end, &mouse_position_y_end);
     glfwSetKeyCallback(window, key_callback);
 
+
     // Check if the ESC key was pressed or the window was closed
     while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0) {
         glfwPollEvents();
@@ -275,11 +278,14 @@ usage:
         // cause flickering, so it's there nonetheless.
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        // Use our shader
+        glUseProgram(programID);
+
+
         glm::mat4 MVP = projection_matrix * view;
         for (int i = 0; i < cnt; i++) {
             glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &(MVP * blocks[i].model())[0][0]);
-            // Use our shader
-            glUseProgram(programID);
+
             // Draw cube...
             blocks[i].Draw();
         }
