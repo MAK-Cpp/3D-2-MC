@@ -2,7 +2,9 @@
 
 GLuint figure::Cube::vertex_array_object_  = 0;
 GLuint figure::Cube::vertex_buffer_object_ = 0;
+GLuint figure::Cube::element_buffer_object_  = 0;
 GLuint figure::Cube::color_buffer_object_  = 0;
+
 
 static constexpr glm::mat4 kIdentityMatrix(1);
 
@@ -34,9 +36,10 @@ glm::vec3 figure::Cube::coordinates() const noexcept {
 }
 
 void figure::Cube::Draw() const {
+//    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glBindVertexArray(vertex_array_object_);
     // Draw the triangle !
-    glDrawArrays(GL_TRIANGLES, 0, 3 * 12);  // Starting from vertex 0; 3 * 12 vertices total -> 12 triangles
+    glDrawElements(GL_TRIANGLES, 3 * 12, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
 void figure::Cube::generateBuffers() {
@@ -48,7 +51,12 @@ void figure::Cube::generateBuffers() {
     // The following commands will talk about our 'vertexbuffer' buffer
     glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_object_);
     // Give our vertices to OpenGL.
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertexes), vertexes, GL_STATIC_DRAW);
+
+    glGenBuffers(1, &element_buffer_object_);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, element_buffer_object_);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
     glVertexAttribPointer(0,                            // 1) attribute 0. No particular reason for 0,
                                                         //    but must match the layout in the shader.
                           3,                            // 2) size
@@ -61,7 +69,7 @@ void figure::Cube::generateBuffers() {
 
     glGenBuffers(1, &color_buffer_object_);
     glBindBuffer(GL_ARRAY_BUFFER, color_buffer_object_);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
     glVertexAttribPointer(1,                            // 1) attribute 1. No particular reason for 1, but
                                                         //    must match the layout in the shader.
                           3,                            // 2) size
@@ -79,6 +87,7 @@ void figure::Cube::clearBuffers() {
     std::cout << "Clear cube buffers... ";
     glDeleteBuffers(1, &vertex_buffer_object_);
     glDeleteBuffers(1, &color_buffer_object_);
+    glDeleteBuffers(1, &element_buffer_object_);
     glDeleteVertexArrays(1, &vertex_array_object_);
     std::cout << "Done!\n";
 }
