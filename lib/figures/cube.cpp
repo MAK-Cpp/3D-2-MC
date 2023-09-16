@@ -1,10 +1,9 @@
 #include "cube.h"
 
-GLuint figure::Cube::vertex_array_object_  = 0;
-GLuint figure::Cube::vertex_buffer_object_ = 0;
-GLuint figure::Cube::element_buffer_object_  = 0;
-GLuint figure::Cube::color_buffer_object_  = 0;
-
+GLuint figure::Cube::vertex_array_object_   = 0;
+GLuint figure::Cube::vertex_buffer_object_  = 0;
+GLuint figure::Cube::element_buffer_object_ = 0;
+GLuint figure::Cube::color_buffer_object_   = 0;
 
 static constexpr glm::mat4 kIdentityMatrix(1);
 
@@ -36,7 +35,7 @@ glm::vec3 figure::Cube::coordinates() const noexcept {
 }
 
 void figure::Cube::Draw() const {
-//    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glBindVertexArray(vertex_array_object_);
     // Draw the triangle !
     glDrawElements(GL_TRIANGLES, 3 * 12, GL_UNSIGNED_INT, 0);

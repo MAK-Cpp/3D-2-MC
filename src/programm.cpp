@@ -108,12 +108,10 @@ void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
     }
 }
 
-void cursourPositionCallback(GLFWwindow* window, double xpos, double ypos) {
-
-}
+void cursourPositionCallback(GLFWwindow *window, double xpos, double ypos) {}
 
 std::pair<GLuint, GLuint> get_resolution() {
-    const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    const GLFWvidmode *mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     return {mode->width, mode->height};
 }
 
@@ -125,12 +123,11 @@ int main(int argc, char **argv) {
         return -1;
     }
 
-
-    constexpr int kWidth             = 800;
-    constexpr int kHeight            = 600;
-//    const auto [kWidth, kHeight] = get_resolution();
-    constexpr float kCamDegrees      = 45;
-    constexpr float kRotationRadians = glm::radians(1.0f);
+    constexpr int kWidth  = 800;
+    constexpr int kHeight = 600;
+    //    const auto [kWidth, kHeight] = get_resolution();
+    constexpr float kCamDegrees       = 45;
+    constexpr float kRotationRadians  = glm::radians(1.0f);
     constexpr float kMovementConstant = 40;
 
     double mouse_position_x_begin;
@@ -276,11 +273,13 @@ usage:
             glfwGetCursorPos(window, &mouse_position_x_end, &mouse_position_y_end);
         }
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-            camera_position += vec3to4(glm::normalize(vectorMultiply(front, vec4to3(glm::normalize(head))))) / kMovementConstant;
+            camera_position +=
+                vec3to4(glm::normalize(vectorMultiply(front, vec4to3(glm::normalize(head))))) / kMovementConstant;
             camera_center += glm::normalize(vectorMultiply(front, vec4to3(glm::normalize(head)))) / kMovementConstant;
         }
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-            camera_position -= vec3to4(glm::normalize(vectorMultiply(front, vec4to3(glm::normalize(head))))) / kMovementConstant;
+            camera_position -=
+                vec3to4(glm::normalize(vectorMultiply(front, vec4to3(glm::normalize(head))))) / kMovementConstant;
             camera_center -= glm::normalize(vectorMultiply(front, vec4to3(glm::normalize(head)))) / kMovementConstant;
         }
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
@@ -313,7 +312,7 @@ usage:
         glUseProgram(programID);
 
         glm::mat4 MVP = projection_matrix * view;
-        for (figure::Cube const& cube : blocks) {
+        for (figure::Cube const &cube : blocks) {
             glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &(MVP * cube.model())[0][0]);
             // Draw cube...
             cube.Draw();
