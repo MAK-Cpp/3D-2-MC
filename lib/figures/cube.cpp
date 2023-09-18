@@ -101,4 +101,3 @@ figure::Cube& figure::Cube::operator+=(glm::vec3 const& vector) {
 figure::Cube& figure::Cube::operator-=(glm::vec3 const& vector) {
     return *this += -vector;
 }
-

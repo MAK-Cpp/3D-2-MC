@@ -42,7 +42,6 @@ public:
     GLfloat& y;
     GLfloat& z;
 
-
     explicit Cube(GLfloat const = 0, GLfloat const = 0, GLfloat const = 0);
     explicit Cube(glm::vec3 const&);
     Cube(figure::Cube const&);

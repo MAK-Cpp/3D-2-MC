@@ -95,9 +95,9 @@ int main(int argc, char **argv) {
         return -1;
     }
 
-//    constexpr int kWidth  = 800;
-//    constexpr int kHeight = 600;
-        const auto [kWidth, kHeight] = GetResolution();
+    //    constexpr int kWidth  = 800;
+    //    constexpr int kHeight = 600;
+    const auto [kWidth, kHeight]      = GetResolution();
     constexpr float kCamDegrees       = 45;
     constexpr float kRotationRadians  = glm::radians(1.0f);
     constexpr float kMovementConstant = 40;
@@ -171,7 +171,6 @@ int main(int argc, char **argv) {
     glm::vec3 side;
     glm::vec4 head(0, 1, 0, 0);
 
-
     std::vector<figure::Cube> blocks;
     std::vector<std::pair<GLfloat const, GLboolean>> is_retired;
 
@@ -212,7 +211,6 @@ int main(int argc, char **argv) {
 
     figure::Cube::generateBuffers();
 
-
     // Check if the ESC key was pressed or the window was closed
     while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0) {
         glfwPollEvents();
@@ -231,12 +229,12 @@ int main(int argc, char **argv) {
                 glm::vec2(mouse_position_x_end - mouse_position_x_begin, mouse_position_y_end - mouse_position_y_begin);
             glm::vec2 normalized_mouse_vector = glm::normalize(mouse_vector);
 
-            camera_center =
-                RotateVec3(front, kRotationRadians * VectorLength(mouse_vector) / 2.0f,
-                           -RotateVec3(
-                               side, std::acos(normalized_mouse_vector[1]) * (normalized_mouse_vector[0] >= 0.f ? 1.f : -1.f),
-                               -front)) +
-                Vec4To3(camera_position);
+            camera_center = RotateVec3(front, kRotationRadians * VectorLength(mouse_vector) / 2.0f,
+                                       -RotateVec3(side,
+                                                   std::acos(normalized_mouse_vector[1]) *
+                                                       (normalized_mouse_vector[0] >= 0.f ? 1.f : -1.f),
+                                                   -front)) +
+                            Vec4To3(camera_position);
             glfwSetCursorPos(window, kWidth / 2, kHeight / 2);
             glfwGetCursorPos(window, &mouse_position_x_end, &mouse_position_y_end);
         }
@@ -280,18 +278,25 @@ int main(int argc, char **argv) {
         glUseProgram(kProgramID);
 
         glm::mat4 MVP = projection_matrix * view;
-        int id = 0;
+        int id        = 0;
         for (figure::Cube &cube : blocks) {
-            glm::vec3 delta = VectorLength(cube.coordinates()) == 0 ? glm::vec3(0) : (glm::normalize(cube.coordinates()) * is_retired[id].first / 1e3f);
+            glm::vec3 delta = VectorLength(cube.coordinates()) == 0
+                                  ? glm::vec3(0)
+                                  : (glm::normalize(cube.coordinates()) * is_retired[id].first / 1e3f);
 
+            //            if (id == 0) std::cout << VectorLength(cube.coordinates()) << ' ' << is_retired[id].first << '
+            //            ' << 2.f * is_retired[id].first << '\n';
 
-//            if (id == 0) std::cout << VectorLength(cube.coordinates()) << ' ' << is_retired[id].first << ' ' << 2.f * is_retired[id].first << '\n';
+            if (VectorLength(cube.coordinates()) <= is_retired[id].first && VectorLength(cube.coordinates()) != 0)
+                is_retired[id].second = true;
+            else if (VectorLength(cube.coordinates()) >= 2.f * is_retired[id].first &&
+                     VectorLength(cube.coordinates()) != 0)
+                is_retired[id].second = false;
 
-            if (VectorLength(cube.coordinates()) <= is_retired[id].first && VectorLength(cube.coordinates()) != 0) is_retired[id].second = true;
-            else if (VectorLength(cube.coordinates()) >= 2.f * is_retired[id].first  && VectorLength(cube.coordinates()) != 0) is_retired[id].second = false;
-
-            if (is_retired[id++].second) cube += delta;
-            else cube -= delta;
+            if (is_retired[id++].second)
+                cube += delta;
+            else
+                cube -= delta;
             glUniformMatrix4fv(kMatrixID, 1, GL_FALSE, &(MVP * cube.model())[0][0]);
             // Draw cube...
             cube.Draw();
