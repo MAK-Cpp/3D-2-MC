@@ -38,7 +38,10 @@ private:
     glm::mat4 model_;
 
 public:
-    GLfloat &x, y, z;
+    GLfloat& x;
+    GLfloat& y;
+    GLfloat& z;
+
 
     explicit Cube(GLfloat const = 0, GLfloat const = 0, GLfloat const = 0);
     explicit Cube(glm::vec3 const&);
@@ -47,6 +50,7 @@ public:
 
     Cube& operator=(figure::Cube const&);
     Cube& operator+=(glm::vec3 const&);
+    Cube& operator-=(glm::vec3 const&);
 
     [[nodiscard]] const glm::mat4& model() const noexcept;
     [[nodiscard]] glm::vec3 coordinates() const noexcept;

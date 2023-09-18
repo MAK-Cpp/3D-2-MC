@@ -90,9 +90,15 @@ void figure::Cube::clearBuffers() {
     glDeleteVertexArrays(1, &vertex_array_object_);
     std::cout << "Done!\n";
 }
+
 figure::Cube& figure::Cube::operator+=(glm::vec3 const& vector) {
     x += vector.x;
     y += vector.y;
     z += vector.z;
     return *this;
 }
+
+figure::Cube& figure::Cube::operator-=(glm::vec3 const& vector) {
+    return *this += -vector;
+}
+

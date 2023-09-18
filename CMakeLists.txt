@@ -38,9 +38,6 @@ add_compile_definitions(-DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}")
 add_subdirectory(lib)
 add_subdirectory(src)
 
-#target_compile_options(${PROJECT_NAME} PRIVATE ${COMPILE_OPT})
-
-
-
+install(TARGETS ${PROJECT_NAME})
 
 
